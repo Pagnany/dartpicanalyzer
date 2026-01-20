@@ -73,6 +73,9 @@ fn main() {
     println!("Found {} red pixels", red_pixel_count);
     println!("Found {} green pixels", green_pixel_count);
 
+    // Create output directory if it doesn't exist
+    std::fs::create_dir_all("output").unwrap();
+
     // Save the output image
     red_only_img.save("output/red_pixels_only.png").unwrap();
     println!("Saved output image as 'red_pixels_only.png'");
