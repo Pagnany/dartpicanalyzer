@@ -32,8 +32,10 @@ fn main() {
             let pixel = img.get_pixel(x, y);
             let (r, g, b, _a) = (pixel[0], pixel[1], pixel[2], pixel[3]);
 
-            let is_red = r > 100 && r.saturating_sub(g) > 50 && r.saturating_sub(b) > 50;
-            let is_green = g > 100 && g.saturating_sub(r) > 50 && g.saturating_sub(b) > 50;
+            // Use relative thresholds: a color is dominant if it's at least 25% stronger than the others
+            // This works for both bright and dark colors
+            let is_red = r > 30 && r.saturating_sub(g) > (g / 4) && r.saturating_sub(b) > (b / 4);
+            let is_green = g > 30 && g.saturating_sub(r) > (r / 4) && g.saturating_sub(b) > (b / 4);
 
             // Check if pixel is predominantly red
             // A pixel is considered "red" if red channel is significantly higher than green and blue
